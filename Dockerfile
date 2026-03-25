@@ -23,4 +23,5 @@ RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cac
 
 EXPOSE 80
 
-CMD ["sh", "-c", "php artisan config:clear && php artisan route:cache && php artisan view:cache && php artisan migrate --force && (php-fpm -D && nginx -g 'daemon off;')"]
+CMD ["sh", "-c", "php artisan optimize:clear && php artisan storage:link && php artisan migrate --force && php artisan db:seed --force && (php-fpm -D && nginx -g 'daemon off;')"]
+
