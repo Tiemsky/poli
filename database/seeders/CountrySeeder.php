@@ -29,9 +29,9 @@ class CountrySeeder extends Seeder
         }
 
         Country::upsert(
-            $payload,
+           $payload,
             ['slug'],
-            ['name', 'key']
+            ['name', 'key', 'updated_at']
         );
     }
 }

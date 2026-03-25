@@ -39,7 +39,7 @@ class CitySeeder extends Seeder
         City::upsert(
             $payload,
             ['slug', 'country_id'],
-            ['name', 'key', 'has_communes']
+            ['name', 'key', 'has_communes', 'updated_at']
         );
     }
 }

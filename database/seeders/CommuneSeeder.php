@@ -41,7 +41,7 @@ class CommuneSeeder extends Seeder
         Commune::upsert(
             $payload,
             ['slug', 'city_id'],
-            ['name']
+            ['name', 'updated_at']
         );
     }
 }

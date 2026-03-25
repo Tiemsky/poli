@@ -14,10 +14,10 @@ return new class extends Migration
     {
         Schema::create('cities', function (Blueprint $table) {
             $table->id();
-            $table->string('key');
+            $table->string('key')->unique();
             $table->foreignIdFor(Country::class)->constrained()->cascadeOnDelete();
             $table->string('name');
-            $table->string('slug')->index();
+            $table->string('slug')->unique();
             $table->boolean('has_communes')->default(false);
             $table->timestamps();
 
