@@ -53,7 +53,7 @@ class RegisteredUserController extends Controller
     /**
      * Récupère les villes d'un pays avec cache optionnel.
      */
-    protected function getCitiesForCountry(string $countryName, bool $useCache = true): \Illuminate\Support\Collection
+    protected function getCitiesForCountry(string $countryName, bool $useCache = true)
     {
         $cacheKey = 'cities.'.Str::slug($countryName);
 
@@ -69,7 +69,7 @@ class RegisteredUserController extends Controller
     /**
      * Charge les villes depuis la base (méthode interne).
      */
-    private function loadCities(string $countryName): \Illuminate\Support\Collection
+    private function loadCities(string $countryName)
     {
         $country = Country::where('slug', Str::slug($countryName))->firstOrFail();
 
@@ -82,7 +82,7 @@ class RegisteredUserController extends Controller
     /**
      * Crée un nouvel utilisateur avec les données validées.
      */
-    protected function createUser(array $validated): User
+    protected function createUser(array $validated)
     {
         return User::create([
             'key' => Str::uuid(), // clé unique
