@@ -12,7 +12,7 @@ COPY . .
 
 # Install Composer & NPM dependencies
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --optimize-autoloader
 RUN apk add --no-cache nodejs npm && npm install && npm run build
 
 # Setup Nginx
