@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('first_name');
 
             $table->string('phone', 20)->unique();
-            $table->string('email')->unique();
+            // $table->string('email')->unique();
 
             $table->string('role')->default('user');
 

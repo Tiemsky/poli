@@ -72,7 +72,7 @@ class RegisteredUserController extends Controller
             'first_name' => Str::title(trim($validated['first_name'])),
             'phone' => $validated['phone'],
             'role' => 'user',
-            'email' => 'noteUsedForNow@email.com',
+            // 'email' => 'noteUsedForNow@email.com',
             'city_id' => $validated['city_id'],
             'commune_id' => $validated['commune_id'] ?? null,
             'account_type' => $validated['is_company'] ? 'entreprise' : 'particulier',
