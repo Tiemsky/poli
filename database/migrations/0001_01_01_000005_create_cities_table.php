@@ -21,7 +21,7 @@ return new class extends Migration
             $table->boolean('has_communes')->default(false);
             $table->timestamps();
 
-            $table->unique(['key', 'country_id']);
+            $table->unique(['slug', 'country_id']);
         });
     }
 
