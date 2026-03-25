@@ -45,7 +45,7 @@ class UserFactory extends Factory
             'first_name' => $this->faker->firstName,
             'last_name' => $this->faker->lastName,
             'phone' => null,
-            'email' => $this->faker->unique()->safeEmail,
+            // 'email' => $this->faker->unique()->safeEmail,
             'role' => null, // valeur par défaut
             'country_id' => $country?->id,
             'city_id' => $city?->id,
