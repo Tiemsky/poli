@@ -23,9 +23,10 @@ class CitySeeder extends Seeder
         foreach ($cities as $city) {
 
             $name = is_array($city) ? $city['name'] : $city;
+            $slug = Str::slug($name);
 
             $payload[] = [
-                'key' => strtoupper(Str::substr(Str::slug($name), 0, 3))  . Str::random(10),
+                'key' => strtoupper($slug),
                 'name' => $name,
                 'slug' => Str::slug($name),
                 'country_id' => $country->id,
@@ -37,8 +38,8 @@ class CitySeeder extends Seeder
 
         City::upsert(
             $payload,
-            ['key', 'country_id'],
-            ['name', 'slug', 'has_communes']
+            ['slug', 'country_id'],
+            ['name', 'key', 'has_communes']
         );
     }
 }

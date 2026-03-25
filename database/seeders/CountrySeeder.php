@@ -17,11 +17,12 @@ class CountrySeeder extends Seeder
         foreach ($countries as $country) {
 
             $name = $country;
+            $slug = Str::slug($country);
 
             $payload[] = [
-                'key' => strtoupper(Str::substr(Str::slug($name), 0, 3)) . Str::random(10),
+                'key' => strtoupper(Str::substr($slug, 0, 3)) . '-' . strtoupper($slug),
                 'name' => $name,
-                'slug' => Str::slug($name),
+                'slug' => $slug,
                 'created_at' => now(),
                 'updated_at' => now(),
             ];
@@ -29,8 +30,8 @@ class CountrySeeder extends Seeder
 
         Country::upsert(
             $payload,
-            ['key'],
-            ['name', 'slug']
+            ['slug'],
+            ['name', 'key']
         );
     }
 }
