@@ -9,15 +9,8 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
 
+Route::redirect('/', 'login');
 
 Route::middleware(['auth', 'verified'])->group(function () {
   Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -25,7 +18,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
   Route::get('enrollement/{selectedType}', [EnrollementController::class, 'showForm'])->name('enrollment.showForm');
   Route::post('enrollement', [EnrollementController::class, 'store'])->name('enrollment.store');
   Route::get('enrollement/{enrollement}/show', [EnrollementController::class, 'show'])->name('enrollement.show');
+  Route::delete('enrollement/{enrollement}/delete', [EnrollementController::class, 'delete'])->name('enrollement.delete');
 });
+
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -41,3 +38,4 @@ Route::get('cities/{cityId}/communes', function ($cityId) {
 });
 
 require __DIR__.'/auth.php';
+require __DIR__.'/download.php';

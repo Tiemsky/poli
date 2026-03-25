@@ -58,41 +58,28 @@ class EnrollementResource extends JsonResource
 
             // === DOCUMENTS (URLs complètes) ===
             'documents' => [
-                'photo_id' => $this->getDocumentUrl($this->photo_id),
+                'photo_id' => $this->getDocumentUrl($this->photo_id, 'preview'),
                 'doc_id_recto' => $this->getDocumentUrl($this->doc_id_recto),
                 'doc_id_verso' => $this->getDocumentUrl($this->doc_id_verso),
                 'driving_licence' => $this->getDocumentUrl($this->driving_licence),
                 'insurance' => $this->getDocumentUrl($this->insurance),
-                'gray_card' => $this->getDocumentUrl($this->gary_card),
+                'gray_card' => $this->getDocumentUrl($this->gray_card),
                 'cmu' => $this->getDocumentUrl($this->cmu),
             ],
     ];
     }
-
-
-
-        /**
-     * Génère l'URL publique complète pour un document
+     /**
+     * URL API pour un document
      */
-    protected function getDocumentUrl(?string $path): ?string
+    protected function getDocumentUrl(?string $path, string $endpoint = 'show'): ?string
     {
-        if (!$path) {
+        if (!$path || !$this->key) {
             return null;
         }
 
-        // Si le path est déjà une URL complète, on le retourne tel quel
-        if (filter_var($path, FILTER_VALIDATE_URL)) {
-            return $path;
-        }
-
-        // Utilise Storage::url() qui gère automatiquement le disque 'public'
-        try {
-            return Storage::disk('public')->url($path);
-        } catch (\Exception $e) {
-            // Fallback: construction manuelle de l'URL
-            return asset('storage/' . ltrim($path, '/'));
-        }
+    return route("documents.{$endpoint}", [ $this->key, basename($path)], false);
     }
+
 
     /**
      * Formate un numéro de téléphone ivoirien

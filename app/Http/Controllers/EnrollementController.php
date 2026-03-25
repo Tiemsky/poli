@@ -9,6 +9,7 @@ use App\Models\Country;
 use App\Models\Enrollement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class EnrollementController extends Controller
@@ -49,7 +50,7 @@ class EnrollementController extends Controller
         foreach ($docFields as $inputField => $dbField) {
             if ($request->hasFile($inputField)) {
                 $path = $request->file($inputField)->store(
-                    "enrollments/{$key}",
+                    "enrollements/{$key}",
                     ['disk' => 'public']
                 );
                 $documents[$dbField] = $path;
@@ -78,5 +79,21 @@ class EnrollementController extends Controller
         return Inertia::render('Enrollement/Show', [
             'enrollement' => new EnrollementResource($enrollement)
         ]);
+    }
+
+    public function delete(Enrollement $enrollement){
+      // Sécurité : vérifier que l'utilisateur est bien le propriétaire
+    if ($enrollement->user_id !== Auth::id()) {
+        abort(403);
+    }
+
+    // Le dossier est nommé selon la clé (ENR-2026-...)
+    $directory = "enrollements/{$enrollement->key}";
+
+    if (Storage::disk('public')->exists($directory)) {
+        Storage::disk('public')->deleteDirectory($directory);
+    }
+
+    $enrollement->delete();
     }
 }

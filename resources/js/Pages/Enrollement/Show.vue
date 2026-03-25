@@ -42,9 +42,7 @@ const handleEdit = (enrollement) => {
             <!-- Breadcrumb -->
             <nav class="flex mb-6 text-sm text-gray-500">
                 <Link :href="route('dashboard')" class="hover:text-primary">Accueil</Link>
-                <span class="mx-2">/</span>
                 <!-- <Link :href="route('enrollments.index')" class="hover:text-primary">Mes enrôlements</Link> -->
-                <span class="mx-2">/</span>
                 <span class="text-gray-900">#{{ enrollement.key }}</span>
             </nav>
 
