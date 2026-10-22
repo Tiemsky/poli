@@ -1,4 +1,4 @@
-FROM php:8.3-fpm-alpine
+FROM php:8.4.27-fpm-alpine
 
 # Arguments pour les versions (facile à maintenir)
 ENV NGINX_VERSION=1.24.0
